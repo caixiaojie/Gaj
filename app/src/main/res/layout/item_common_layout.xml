@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="61dp">
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/point_shape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></LinearLayout>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:textColor="#333"
+                android:singleLine="true"
+                android:text="附近拉进来旮旯里；"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_time"
+                android:textColor="#999"
+                android:text="2017-08-10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="阅读"
+                android:textColor="#999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_count"
+                android:textColor="#999"
+                android:text="5733"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--分割线-->
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
+</LinearLayout>
