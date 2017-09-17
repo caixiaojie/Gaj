@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.fskj.gaj.MainActivity">
-    <include layout="@layout/layout_app_toolbar"/>
     <RelativeLayout
         android:id="@+id/real_layout"
         android:layout_width="match_parent"

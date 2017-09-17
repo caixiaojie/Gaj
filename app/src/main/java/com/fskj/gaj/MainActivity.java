@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         llMenuRoom=(LinearLayout)findViewById(R.id.llMenuRoom);
         imgRoom=(ImageView)findViewById(R.id.img_room);
         tvRoom=(TextView)findViewById(R.id.tv_room);
+
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件

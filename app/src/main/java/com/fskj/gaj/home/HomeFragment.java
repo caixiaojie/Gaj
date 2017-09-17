@@ -3,10 +3,12 @@ package com.fskj.gaj.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.home.adapter.HomePagerAdapter;
 import com.fskj.gaj.home.fragment.CommonFragment;
 import com.fskj.gaj.home.fragment.RecommandFragment;
@@ -31,7 +34,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
 
-
+    private Toolbar toolbar;
 
     public static HomeFragment getInstance( ){
         HomeFragment f =new HomeFragment();
@@ -75,13 +78,19 @@ public class HomeFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_home, null);
         tabLayout = (TabLayout) v.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) v.findViewById(R.id.viewPager);
+        toolbar = (Toolbar) v.findViewById(R.id.toolBar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        toolbar.setTitle("重庆市公安局江北分局");
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件
         initWidgetEvent();
+        SharedPreferences sp = Tools.getSharePreferences(activity, "FragmentPosition");
+        int position = sp.getInt("position", 0);
         typeListRequest.send();
         homePagerAdapter = new HomePagerAdapter(getChildFragmentManager(),fragmentList,zhTitleList);
         viewPager.setAdapter(homePagerAdapter);
+        viewPager.setCurrentItem(position);
         tabLayout.setupWithViewPager(viewPager);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;

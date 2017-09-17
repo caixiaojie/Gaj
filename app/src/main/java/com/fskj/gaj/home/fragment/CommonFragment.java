@@ -1,6 +1,7 @@
 package com.fskj.gaj.home.fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import android.view.View.OnClickListener;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.request.MsgListRequest;
 import com.fskj.gaj.vo.MsgListCommitVo;
 import com.fskj.gaj.vo.MsgListResultVo;
@@ -59,6 +61,13 @@ public class CommonFragment extends Fragment {
 
     private SwipeRefreshLayout srLayout;
     private RecyclerView recyclerView;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -86,6 +95,9 @@ public class CommonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity=this.getActivity();
 
+
+            SharedPreferences sp = Tools.getSharePreferences(activity, "FragmentPosition");
+            sp.edit().putInt("position",0).commit();
 
 //界面初始化
         View v=inflater.inflate(R.layout.fragment_common, null);

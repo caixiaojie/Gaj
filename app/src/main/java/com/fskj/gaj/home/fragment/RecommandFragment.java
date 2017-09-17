@@ -1,6 +1,7 @@
 package com.fskj.gaj.home.fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
 import com.fskj.gaj.Util.PageQuery;
+import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.request.PicNewsListRequest;
 import com.fskj.gaj.vo.PicNewsListResultVo;
 
@@ -60,6 +62,15 @@ public class RecommandFragment extends Fragment {
     private RecommandAdapter adapter;
     private Handler handler = new Handler();
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser == true) {
+
+        }
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -77,7 +88,8 @@ public class RecommandFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity=this.getActivity();
 
-
+        SharedPreferences sp = Tools.getSharePreferences(activity, "FragmentPosition");
+        sp.edit().putInt("position",1).commit();
 //界面初始化
         View v=inflater.inflate(R.layout.fragment_recommand, null);
         srLayout=(SwipeRefreshLayout)v.findViewById(R.id.sr_layout);
