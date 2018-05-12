@@ -29,7 +29,7 @@ public class RequestParams {
      * @param source the source key/value string map to add.
      */
     public RequestParams(Map<String, String> source) {
-        if (source != null) {
+        if (source != null && source.size() > 0) {
             for (Map.Entry<String, String> entry : source.entrySet()) {
                 put(entry.getKey(), entry.getValue());
             }

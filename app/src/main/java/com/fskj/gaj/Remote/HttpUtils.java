@@ -14,6 +14,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -21,11 +23,240 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
+    public static final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
+
     public static String postBody(String uri, Map<String,String> body ) throws IOException,Exception {
 
         try {
             String result = null;
             Request request = CommonRequest.createPostRequest(uri,new RequestParams(body));
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+    public static String putBody(String uri, Map<String,String> body ) throws IOException,Exception {
+
+        try {
+            String result = null;
+            Request request = CommonRequest.createPutRequest(uri,new RequestParams(body));
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+    public static String deleteBody(String uri, Map<String,String> body ) throws IOException,Exception {
+
+        try {
+            String result = null;
+            Request request = CommonRequest.createDeleteRequest(uri,new RequestParams(body));
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+
+
+    public static String postJson(String uri, String json ) throws IOException,Exception {
+
+        try {
+            String result = null;
+            RequestBody requestBody = RequestBody.create(JSON,json);
+            Request request = new Request.Builder().url(uri).post(requestBody).build();
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+    public static String putJson(String uri, String json ) throws IOException,Exception {
+
+        try {
+            String result = null;
+            RequestBody requestBody = RequestBody.create(JSON,json);
+            Request request = new Request.Builder().url(uri).put(requestBody).build();
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+    public static String deleteJson(String uri, String json ) throws IOException,Exception {
+
+        try {
+            String result = null;
+            RequestBody requestBody = RequestBody.create(JSON,json);
+            Request request = new Request.Builder().url(uri).delete(requestBody).build();
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+
+    public static String postFile(String uri, Map<String,String> params ,FormFile formFile) throws IOException,Exception {
+
+        try {
+            String result = null;
+            MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+            if (formFile != null) {
+                // MediaType.parse() 里面是上传的文件类型。
+                RequestBody body = RequestBody.create(MediaType.parse("image/*"), formFile.getFile());
+                // 参数分别为， 请求key ，文件名称 ， RequestBody
+                requestBody.addFormDataPart("file", formFile.getFilename(), body);
+            }
+            if (params != null && params.size() > 0) {
+                // map 里面是请求中所需要的 key 和 value
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    Log.d("HttpUtils", "key=="+key+"value=="+value);
+                    //key 和 value 都不为空才提交数据
+                    if (key != null && value != null) {
+                        requestBody.addFormDataPart(key, value);
+                    }
+                }
+            }
+
+            Request request = new Request.Builder().url(uri).post(requestBody.build()).build();
+            Response response = mOkHttpClient.newCall(request).execute();
+
+            int rcode=response.code();
+            Log.i("rcode","url="+uri+"  rcode="+rcode);
+            if (response.isSuccessful()){
+                result = response.body().string();
+
+            } else {
+                Log.i("result","response.code="+response.code()+"");
+                throw new IOException();
+            }
+            if (BuildConfig.DEBUG) {
+                Log.i("result", "" + result);
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("服务器连接失败或超时", e);
+        }
+    }
+
+    public static String postFiles(String uri, Map<String,String> params ,FormFile [] formFiles) throws IOException,Exception {
+
+        try {
+            String result = null;
+            MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+            if (formFiles != null && formFiles.length >0) {
+                for (FormFile file : formFiles) {
+                    if (file == null) {
+                        continue;
+                    }
+                    // MediaType.parse() 里面是上传的文件类型。
+                    RequestBody body = RequestBody.create(MediaType.parse("image/*"), file.getFile());
+                    // 参数分别为， 请求key ，文件名称 ， RequestBody
+                    requestBody.addFormDataPart("file", file.getFilename(), body);
+                }
+
+            }
+            if (params != null && params.size() > 0) {
+                // map 里面是请求中所需要的 key 和 value
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    Log.d("HttpUtils", "key=="+key+"value=="+value);
+                    //key 和 value 都不为空才提交数据
+                    if (key != null && value != null) {
+                        requestBody.addFormDataPart(key, value);
+                    }
+                }
+            }
+            Request request = new Request.Builder().url(uri).post(requestBody.build()).build();
             Response response = mOkHttpClient.newCall(request).execute();
 
             int rcode=response.code();
@@ -104,11 +335,6 @@ public class HttpUtils {
             throw new Exception("服务器连接失败或超时", e);
         }
     }
-
-
-
-
-
     public static String get(String uri) throws IOException,Exception {
 
         try {

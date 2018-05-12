@@ -56,4 +56,48 @@ public class CommonRequest {
         FormBody mFormBody = mFromBodyBuilder.build();
         return new Request.Builder().url(url).post(mFormBody).build();
     }
+
+    /**
+     * 创建Put请求的Request
+     *
+     * @param url
+     * @param params
+     * @return 返回一个创建好的Request对象
+     */
+    public static Request createPutRequest(String url, RequestParams params) {
+        FormBody.Builder mFromBodyBuilder = new FormBody.Builder();
+
+        if (params != null) {
+            for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
+                //将请求参数逐一遍历添加到我们的请求构建类中
+                mFromBodyBuilder.add(entry.getKey(), entry.getValue());
+            }
+        }
+
+        //通过请求构建类的build方法获取到真正的请求体对象
+        FormBody mFormBody = mFromBodyBuilder.build();
+        return new Request.Builder().url(url).put(mFormBody).build();
+    }
+
+    /**
+     * 创建Delete请求的Request
+     *
+     * @param url
+     * @param params
+     * @return 返回一个创建好的Request对象
+     */
+    public static Request createDeleteRequest(String url, RequestParams params) {
+        FormBody.Builder mFromBodyBuilder = new FormBody.Builder();
+
+        if (params != null) {
+            for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
+                //将请求参数逐一遍历添加到我们的请求构建类中
+                mFromBodyBuilder.add(entry.getKey(), entry.getValue());
+            }
+        }
+
+        //通过请求构建类的build方法获取到真正的请求体对象
+        FormBody mFormBody = mFromBodyBuilder.build();
+        return new Request.Builder().url(url).delete(mFormBody).build();
+    }
 }
