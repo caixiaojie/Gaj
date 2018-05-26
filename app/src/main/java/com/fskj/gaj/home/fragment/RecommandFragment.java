@@ -201,8 +201,8 @@ public class RecommandFragment extends Fragment {
             holder.tvTime.setText(vo.getCreatetime());
             holder.tvCount.setText(""+vo.getVisit());
             Glide.with(activity).load(AppConfig.imgPath+vo.getImgurl())
-                    .centerCrop()
-                    .error(R.mipmap.ic_launcher)
+//                    .centerCrop()
+//                    .error(R.mipmap.ic_launcher)
                     .into(holder.img);
         }
 

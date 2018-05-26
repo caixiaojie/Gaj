@@ -65,7 +65,7 @@ public class TestActivity extends AppCompatActivity {
                 holder.setText(R.id.tv_time,picNewsList.get(position).getCreatetime());
                 holder.setText(R.id.tv_number,picNewsList.get(position).getVisit()+"");
                 Glide.with(activity).load(AppConfig.imgPath+picNewsList.get(position).getImgurl())
-                        .error(R.mipmap.ic_launcher)
+//                        .error(R.mipmap.ic_launcher)
                         .into((ImageView) holder.getView(R.id.img_news));
             }
         };

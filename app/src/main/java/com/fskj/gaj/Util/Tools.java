@@ -31,8 +31,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
+//import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+//import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.fskj.gaj.AppConfig;
 
@@ -263,6 +263,7 @@ public class Tools {
 	public static String createID() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
+/*
 
 	public static void downloadImage(Context context, final ImageView paramImageView, String url) {
 
@@ -321,6 +322,7 @@ public class Tools {
 		}
 
 	}
+*/
 
 	public static  void loadImage(Context activity, ImageView imageView, String filepath){
 		if(filepath==null||filepath.equals("")){
